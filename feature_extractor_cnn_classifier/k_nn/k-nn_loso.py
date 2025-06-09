@@ -1,16 +1,18 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat May  3 16:15:59 2025
-
-@author: giopo
-"""
 
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Created on Mon Apr 21 18:11:53 2025
 
-@author: poulimenos
+@author: Πουλημένος
+
+Πείραμα : Με k-NN αλγοριθμό και
+δεδομένα ,στατιστικά μεγέθη ανα χρονικά παράθυρα για κάθε χαρακτηριστικό 
+που παράγει το CNN.
+
+Προβλήματα Ταξινόμησεις :
+    1)Παρκινσον , Οστεοαθρίτιδα και Υγειή Βαδιση 
+    2)Παρκινσον , Οστεοαθρίτιδα (μαζί με τα στάδια της) και Υγειή Βαδιση 
 """
 
 import pandas as pd
@@ -70,9 +72,6 @@ groups = df['Id']
 
 # === Συνάρτηση για LOSO ===
 
-import pandas as pd
-
-
 def loso_cross_validation(x, y, groups, message, num_classes):
     print(message)
     logo = LeaveOneGroupOut()
@@ -84,6 +83,8 @@ def loso_cross_validation(x, y, groups, message, num_classes):
     all_y_true = []
     all_y_pred = []
 
+    #Διαχωρισμός δεδομένων υλοποιηση loso cv με την βοηθεια της leave one group out 
+    #εχοντας  ως group το id 
     for i, (train_idx, test_idx) in enumerate(logo.split(x, y, groups=groups)):
         x_train, x_test = x.iloc[train_idx], x.iloc[test_idx]
         y_train, y_test = y.iloc[train_idx], y.iloc[test_idx]
@@ -108,6 +109,8 @@ def loso_cross_validation(x, y, groups, message, num_classes):
         all_y_true.extend(y_test.tolist())
         all_y_pred.extend(y_pred.tolist())
 
+
+        #κρατάμε στοιχεία για κάθε ατομό σχετικα με την ευστοχία και τις προβλεψείς
         for idx, true_label, pred_label in zip(x_test.index, y_test, y_pred):
             result = {
                 'subject': group_label,

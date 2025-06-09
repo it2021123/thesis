@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed May 7 15:09:52 2025
-@author: giopo
+@author: Πουλημένος
+
+Εξαγωγή χαρακτηριστηκών απο δεδομένα βάδισης με χρήση ενός cnn 
+νευρωνικου δικτυόυ . Δημιουργία στατιστικών μεγεθών ανα χρονικό
+παράθυρο για κλαθε νέο χαρακτηριστικό που δημιουργείται
 
 """
 
@@ -12,7 +16,7 @@ import re
 import torch
 import torch.nn as nn
 
-
+#Δομή cnn για εξαγωγή χαρακτηριστικών
 class FeatureExtractor(nn.Module):
     def __init__(self, input_channels=39, feature_dim=64):
         super(FeatureExtractor, self).__init__()
@@ -42,8 +46,9 @@ class FeatureExtractor(nn.Module):
         return x
 
 
-
+#Συναρτηση που εξάγει δεδομένα απο το cnn
 def extract_features_with_cnn(window, feature_extractor):
+    """ eξαγωγή χαρακτηριστικών."""
     data = window.filter(regex='_x|_y|_z').values.T
     data = torch.tensor(data, dtype=torch.float32).unsqueeze(0)
 
@@ -51,6 +56,11 @@ def extract_features_with_cnn(window, feature_extractor):
         cnn_features = feature_extractor(data).numpy().flatten()
 
     return {f'cnn_feat_{i}': val for i, val in enumerate(cnn_features)}
+
+
+
+
+
 
 def process_window(window, window_num, nm, feature_extractor=None):
     """Επεξεργάζεται ένα χρονικό παράθυρο δεδομένων βάδισης με εξαγωγή χαρακτηριστικών."""
@@ -93,7 +103,7 @@ def process_window(window, window_num, nm, feature_extractor=None):
     return features
 
 
-
+#επεξεργασία ανά ομάδα Παθησεις-Κατηγορίας
 def process_group(input_path, output_path, pattern, nm, feature_extractor=None):
     all_data = []
 
@@ -128,7 +138,7 @@ def process_group(input_path, output_path, pattern, nm, feature_extractor=None):
 cnn_extractor = FeatureExtractor(input_channels=39, feature_dim=64)
 cnn_extractor.eval()
 
-# Configuration for each patient group
+# Στοιχεία Λεξικό για την χρήση του σαν ορίσμα  στις παραπάνω συναρτήσεις
 groups = [
     {
        'name': 'NM',
@@ -166,7 +176,7 @@ groups = [
    }
 ]
 
-# Process all groups
+# Προεπεξεργασία όλων των ομάδων του συνολου δεδομένων
 for group in groups:
     print(f"\nProcessing {group['name']} group...")
     process_group(group['input'], group['output'], group['pattern'], group['nm'], cnn_extractor)

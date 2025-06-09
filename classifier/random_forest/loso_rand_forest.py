@@ -3,7 +3,10 @@
 """
 Created on Mon Apr 21 18:11:53 2025
 
-@author: poulimenos
+Πειράματα με στατιστικά μεγέθη  κινησιολογικούς δείκτες με L.O.S.O. C.V.
+ μέθοδο αξιολόγησης  και Ταξινομήτη Random Forest
+
+@author: Πουλημένος
 """
 
 import pandas as pd
@@ -78,6 +81,8 @@ def loso_cross_validation(x, y, groups, message, num_classes):
     all_y_true = []
     all_y_pred = []
 
+#Διαχωρισμός δεδομένων υλοποιηση loso cv με την βοηθεια της leave one group out 
+#εχοντας  ως group το id 
     for i, (train_idx, test_idx) in enumerate(logo.split(x, y, groups=groups)):
         x_train, x_test = x.iloc[train_idx], x.iloc[test_idx]
         y_train, y_test = y.iloc[train_idx], y.iloc[test_idx]

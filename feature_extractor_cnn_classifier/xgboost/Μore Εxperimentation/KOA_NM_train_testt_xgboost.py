@@ -2,8 +2,20 @@
 """
 Created on Tue May 27 23:22:14 2025
 
-@author: giopo
+@author: Πουλημένος
+
+Πείραμα : Μέθοδος αξιολόγησης διαχωρισμού σε τρία υποσύνολά δεδομένων
+(test set ,train set ,validation set)  με XGBoost αλγοριθμό και
+ δεδομένα ,στατιστικά μεγέθη ανα χρονικά παράθυρα για κάθε χαρακτηριστικό 
+που παράγει το CNN.
+
+Προβλήματα Ταξινόμησεις :
+    1)Yγιούς βάδισης , Οστεοαθρίτιδα 
+  
+
+
 """
+
 import numpy as np
 import pandas as pd
 from xgboost import XGBClassifier
@@ -40,7 +52,7 @@ df = convert_commas_to_periods(df)
 # === Δημιουργία πεδίων ετικετών ===
 
 df['Disease_Level'] = df['Disease'] + "_" + df['Level'].astype(str)
-    
+
 
 
 

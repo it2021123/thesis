@@ -2,7 +2,10 @@
 """
 Created on Sun May  4 18:06:54 2025
 
-@author: giopo
+Πειράματα με στατιστικά μεγέθη  κινησιολογικούς δείκτες με L.O.S.O. C.V.
+ μέθοδο αξιολόγησης  και Ταξινομήτη XGBoost
+
+@author: Πουλημένος
 """
 
 import pandas as pd
@@ -52,7 +55,7 @@ df['Disease_Level_encoded'] = le_disease_level.fit_transform(df['Disease_Level']
 # === Κανονικοποίηση χαρακτηριστικών ===
 features = df.drop(columns=['Disease', 'Level', 'Disease_Level', 'Disease_encoded', 'Disease_Level_encoded', 'Id'], errors='ignore')
 scaler = StandardScaler()
-x = pd.DataFrame(scaler.fit_transform(features), columns=features.columns)
+x = features
 
 # === Τελικά δεδομένα ===
 y_disease = df['Disease_encoded']
@@ -76,7 +79,8 @@ def loso_cross_validation(x, y, groups, message, num_classes):
 
     all_y_true = []
     all_y_pred = []
-
+    #Διαχωρισμός δεδομένων υλοποιηση loso cv με την βοηθεια της leave one group out 
+    #εχοντας  ως group το id 
     for i, (train_idx, test_idx) in enumerate(logo.split(x, y, groups=groups)):
         x_train, x_test = x.iloc[train_idx], x.iloc[test_idx]
         y_train, y_test = y.iloc[train_idx], y.iloc[test_idx]

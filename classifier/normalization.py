@@ -1,3 +1,13 @@
+
+"""
+Created on Wen Dec  18 15:39:04 2024
+
+@author: Πουλημένος
+
+Κανονικοποίηση δεικτών πριν τη εισαγωγή τους σε Αλγόριθμούς Μηχανικής Μαθησης
+"""
+
+ 
 from sklearn.preprocessing import MinMaxScaler
 import pandas as pd
 
@@ -51,4 +61,4 @@ filtered_df[numeric_cols] = scaler.fit_transform(filtered_df[numeric_cols])
 
 # Αποθήκευση του τελικού αρχείου
 filtered_df.to_csv('C:/Users/giopo/OneDrive/Έγγραφα/thesis/clasifier/all_features.csv', index=False)
-print("✅ All features combined and saved to all_features.csv")
+print("All features combined and saved to all_features.csv")

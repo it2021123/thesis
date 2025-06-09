@@ -5,6 +5,10 @@ from math import atan2, degrees
 from pathlib import Path
 import re
 
+"""
+Δημιουργία χωροχρονικών δεικτών βάδισης 
+"""
+
 def calculate_angle_3d(a, b, c):
     """Υπολογισμός γωνίας ανάμεσα σε 3 σημεία στο 3D (a-b-c)"""
     ba = np.array(a) - np.array(b)
@@ -17,11 +21,11 @@ def calculate_angle_3d(a, b, c):
 
 
 def calculate_similarity(left_vals, right_vals):
-    """Calculate similarity metrics between bilateral features"""
+    """Υπολογισμός ομοιότητας μεταξή των δύο πλεύρών """
     if len(left_vals) == 0 or len(right_vals) == 0:
         return {'mean': np.nan, 'max': np.nan, 'std': np.nan}
     
-    # Absolute differences frame-by-frame
+    # Η απόλυτη διαφορά ανάμεσα στα frames
     diffs = np.abs(np.array(left_vals) - np.array(right_vals))
     
     return {
@@ -49,7 +53,7 @@ def process_window(window, window_num, nm):
     step_lengths = []
 
 
-    # Νέα: Εκτοπίσεις και ταχύτητες
+    #  Εκτοπίσεις και ταχύτητες
     joints = ['HIP', 'KNEE', 'ANKLE']
     displacements = {f'{side}_{joint}': [] for side in ['LEFT', 'RIGHT'] for joint in joints}
     velocities = {f'{side}_{joint}': [] for side in ['LEFT', 'RIGHT'] for joint in joints}
@@ -159,19 +163,19 @@ def process_window(window, window_num, nm):
     return features
 
 def process_group(input_path, output_path, pattern ,nm):
-    """Process all files in a patient group"""
+    """Προεπεξεργασία κάθε κατηγορίας για την δημιουργία των δεικτων βάδισης ανα άτομο"""
     all_data = []
     
     for csv_file in Path(input_path).glob('*.csv'):
         try:
-            # Verify filename pattern
+            # Ελεγχός για σωστή δομη αρχείου
             if not re.search(pattern, csv_file.name):
                 continue
                 
             df = pd.read_csv(csv_file)
             print(f"Processing {csv_file.name} ({len(df)} frames)")
             
-            # Process in 25-frame windows with 12-frame overlap
+            #Ορισμός μεγέθους παραθύρου 25 (μισό δευτερόλεπτο)
             window_size = 25
             step_size = 12
             
@@ -184,11 +188,11 @@ def process_group(input_path, output_path, pattern ,nm):
         except Exception as e:
             print(f"Error processing {csv_file.name}: {e}")
     
-    # Save results
+    # Αποθήκευση Αποτελεσμάτων
     if all_data:
         pd.DataFrame(all_data).to_csv(output_path, index=False)
 
-# Configuration for each patient group
+# Χωρισμός για την προεπεξεργασία ανα κλάση
 groups = [
     {
        'name': 'NM',
@@ -231,7 +235,7 @@ groups = [
 ]
 
 
-# Process all groups
+# Προεπεξεργάσια όλων των ομάδων
 for group in groups:
     print(f"\nProcessing {group['name']} group...")
     process_group(group['input'], group['output'], group['pattern'],group['nm'])

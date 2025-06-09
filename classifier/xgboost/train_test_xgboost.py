@@ -2,7 +2,10 @@
 """
 Created on Sun May  4 17:31:04 2025
 
-@author: giopo
+Πειράματα με στατιστικά μεγέθη  κινησιολογικούς δείκτες με 
+Train -Validation Test split μέθοδο αξιολόγησης  και Ταξινομήτη XGBoost
+
+@author: Πουλημένος
 
 """
 
@@ -70,17 +73,6 @@ def train_random_forest_grouped(x, y, groups, message, class_labels=None, show_c
     """
     Εκπαίδευση Random Forest με train-test split που σέβεται τα group IDs.
 
-    Params:
-    - x: DataFrame με χαρακτηριστικά.
-    - y: Series με ετικέτες.
-    - groups: Ομαδοποιήσεις (π.χ. ασθενείς).
-    - message: Μήνυμα για εκτύπωση.
-    - class_labels: Προαιρετικά labels για confusion matrix.
-    - show_confusion: Αν θα εμφανιστεί confusion matrix.
-
-    Returns:
-    - clf: Εκπαιδευμένος ταξινομητής.
-    - metrics: Dict μετρικών.
     """
 
     # Χωρισμός βάσει ομάδων

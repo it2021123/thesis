@@ -2,7 +2,10 @@
 """
 Created on Thu May  8 18:27:11 2025
 
-@author: giopo
+@author: Πουλημένος
+
+
+Κανονικοποήση εξαγομενων δεδομέων από το cnn
 """
 
 from sklearn.preprocessing import MinMaxScaler

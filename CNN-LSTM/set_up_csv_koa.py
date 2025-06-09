@@ -1,9 +1,22 @@
+"""
+Created on Fri Dec  20 11:28:31 2024
+
+@author: Πουλημένος
+
+Καλύτερο format των csv με τις συντεταγμένες αρθρώσεων για να μπορουν
+να αναδομηθούν από το Dataset class ωστε να έχοθν την σωστή είσοδο  για 
+το CNN-LSTM
+"""
+
 import os
 import pandas as pd
 import re
 from pathlib import Path
 from sklearn.preprocessing import StandardScaler
 import numpy as np
+
+
+
 
 # Ορισμός φακέλων
 root_folders = [Path("/home/poulimenos/project/output/KOA/"), Path("/home/poulimenos/project/output/NM/"), Path("/home/poulimenos/project/output/PD/")]

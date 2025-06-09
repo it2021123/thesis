@@ -1,3 +1,13 @@
+
+"""
+Created on Mon Dec  15 09:08:39 2024
+
+@author: Πουλημένος
+
+Αρχείο για την εξαγωγή συντεταγμένων από όλα τα βίντεο του dataset 
+και οργανωσή τους σε φακέλους.
+
+"""
 import re
 from pathlib import Path
 import numpy as np
@@ -9,7 +19,8 @@ import mediapipe as mp
 # Αρχικοποίηση της MediaPipe BlazePose
 mp_pose = mp.solutions.pose
 
-# Ορισμός των φακέλων που θα ψάξουμε για τα αρχεία .MOV
+# Ορισμός των φακέλων που θα ψάξουμε για τα αρχεία .MOV (βιντεό ) πρεπεί να γινέι uzip ο φάκελος 
+#Δηλαδη απαιτείται η εγκατάσταση του φακέλου με τα βίντεο του παρακάτω συνδέσμου https://data.mendeley.com/datasets/44pfnysy89/1
 root_folders = [ Path("/home/poulimenos/project/KOA-PD-NM/KOA/KOA_EL"),
    Path("/home/poulimenos/project/KOA-PD-NM/KOA/KOA_MD"),
    Path("/home/poulimenos/project/KOA-PD-NM/KOA/KOA_SV"),

@@ -4,7 +4,10 @@
 """
 Created on Mon Apr 21 18:11:53 2025
 
-@author: poulimenos
+Πειράματα με στατιστικά μεγέθη  κινησιολογικούς δείκτες με 
+Train -Validation Test split μέθοδο αξιολόγησης  και Ταξινομήτη Random Forest
+
+@author: Πουλημένος
 """
 
 import pandas as pd

@@ -1,17 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Fri Mar  7 11:28:31 2025
+Created on Sat Dec  21 10:08:45 2024
 
-@author: poulimenos
+@author: Πουλημένος
+
+Αρχικός κώδικας για format των csv με τις συντεταγμένες αρθρώσεων για να μπορουν
+να αναδομηθούν από το Dataset class ωστε να έχοθν την σωστή είσοδο  για 
+το CNN-LSTM
+
+!διαφορά με το αλλό αρχείο ειναι οτι δεν κάνει διάκριση μεταξυ το ποιας 
+κατεύθυνσης περπατάνε τα άτομα
+
 """
-
 import os
 import pandas as pd
 import re
 from pathlib import Path
 from sklearn.preprocessing import StandardScaler
 import numpy as np
+
+
 
 # Ορισμός φακέλων
 root_folders_side_1 = [ Path("/home/poulimenos/project/output/NM/side_1")]
